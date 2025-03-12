@@ -11,10 +11,11 @@ function loadCategories() {
 // }
 
 function displayCategories(categories) {
+  // console.log(categories);
   const categoryContainer = document.getElementById("category-container");
   for (const cate of categories) {
-    console.log(cate);
-    categoryDiv = document.createElement("div");
+    // console.log(cate);
+    const categoryDiv = document.createElement("div");
     categoryDiv.innerHTML = `
     <button class="btn btn-sm hover:bg-[#FF1F3D] hover:text-white">${cate.category}</button>
     `;
