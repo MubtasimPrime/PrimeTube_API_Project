@@ -1,14 +1,29 @@
+function removeActiveClass() {
+  const activeBtn = document.getElementsByClassName("active");
+
+  for (let btn of activeBtn) {
+    btn.classList.remove("active");
+  }
+  console.log(activeBtn);
+}
+
 function loadCategories() {
   //fetch Data
   fetch("https://openapi.programming-hero.com/api/phero-tube/categories")
     .then((response) => response.json())
-    .then((data) => displayCategories(data.categories));
+    .then((data) => {
+      displayCategories(data.categories);
+    });
 }
 
 function loadVideos() {
   fetch("https://openapi.programming-hero.com/api/phero-tube/videos")
     .then((res) => res.json())
-    .then((data) => displayVideos(data.videos));
+    .then((data) => {
+      removeActiveClass();
+      document.getElementById("btn-all").classList.add("active");
+      displayVideos(data.videos);
+    });
 }
 
 // {
@@ -23,7 +38,7 @@ function displayCategories(categories) {
     // console.log(cate);
     const categoryDiv = document.createElement("div");
     categoryDiv.innerHTML = `
-    <button onCLick="loadCategoriesVideos(${cate.category_id})"  class="btn btn-sm hover:bg-[#FF1F3D] hover:text-white">${cate.category}</button>
+    <button id="btn-${cate.category_id}" onCLick="loadCategoriesVideos(${cate.category_id})"  class="btn btn-sm hover:bg-[#FF1F3D] hover:text-white">${cate.category}</button>
     `;
     categoryContainer.append(categoryDiv);
   }
@@ -64,8 +79,9 @@ const displayVideos = (videos) => {
           </div>`;
     return;
   }
+
   videos.forEach((video) => {
-    console.log(video);
+    // console.log(video);
     const videoCard = document.createElement("div");
     videoCard.innerHTML = `
               <div class="card bg-base-100 border border-gray-300">
@@ -114,10 +130,16 @@ const displayVideos = (videos) => {
 
 const loadCategoriesVideos = (id) => {
   const url = `https://openapi.programming-hero.com/api/phero-tube/category/${id}`;
-  console.log(url);
+  // console.log(url);
   fetch(url)
     .then((res) => res.json())
-    .then((data) => displayVideos(data.category));
+    .then((data) => {
+      removeActiveClass();
+      const clickedButton = document.getElementById(`btn-${id}`);
+      clickedButton.classList.add("active");
+      console.log(clickedButton);
+      displayVideos(data.category);
+    });
 };
 
 loadCategories();
