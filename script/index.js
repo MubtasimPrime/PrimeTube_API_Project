@@ -51,6 +51,19 @@ function displayCategories(categories) {
 const displayVideos = (videos) => {
   const videoContainer = document.getElementById("video-container");
   videoContainer.innerHTML = ``;
+
+  if (videos.length === 0) {
+    videoContainer.innerHTML = `
+              <div
+            class="col-span-full flex flex-col items-center justify-center py-[10rem]"
+          >
+            <img src="images/Icon.png" alt="" />
+            <h2 class="text-2xl font-bold">
+              Oops!! Sorry, There is no content here
+            </h2>
+          </div>`;
+    return;
+  }
   videos.forEach((video) => {
     console.log(video);
     const videoCard = document.createElement("div");
