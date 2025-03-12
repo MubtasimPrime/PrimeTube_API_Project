@@ -4,7 +4,7 @@ function removeActiveClass() {
   for (let btn of activeBtn) {
     btn.classList.remove("active");
   }
-  console.log(activeBtn);
+  // console.log(activeBtn);
 }
 
 function loadCategories() {
@@ -25,6 +25,34 @@ function loadVideos() {
       displayVideos(data.videos);
     });
 }
+
+const loadVideoDetails = (videoId) => {
+  // console.log(videoId);
+  const url = `https://openapi.programming-hero.com/api/phero-tube/video/${videoId}`;
+  fetch(url)
+    .then((res) => res.json())
+    .then((data) => displayVideoDetails(data.video));
+};
+
+const displayVideoDetails = (video) => {
+  console.log(video);
+  document.getElementById("video_details").showModal();
+  const detailsContainer = document.getElementById("details-container");
+
+  detailsContainer.innerHTML = `
+  <div class="card bg-base-100 image-full shadow-sm">
+  <figure>
+    <img
+      src="${video.thumbnail}"
+      alt="Shoes" />
+  </figure>
+  <div class="card-body">
+    <h2 class="card-title">Card Title</h2>
+    <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
+  </div>
+</div>
+  `;
+};
 
 // {
 //     "category_id":"1001",
@@ -122,6 +150,7 @@ const displayVideos = (videos) => {
                 <p class="text-sm text-gray-400 flex gap-1">${video.others.views} views</p>
               </div>
             </div>
+            <button onClick="loadVideoDetails('${video.video_id}')" class="btn btn-block">Show Details</button>
           </div>
     `;
     videoContainer.append(videoCard);
