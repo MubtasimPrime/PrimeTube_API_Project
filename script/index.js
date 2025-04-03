@@ -35,7 +35,7 @@ const loadVideoDetails = (videoId) => {
 };
 
 const displayVideoDetails = (video) => {
-  console.log(video);
+  // console.log(video);
   document.getElementById("video_details").showModal();
   const detailsContainer = document.getElementById("details-container");
 
@@ -47,8 +47,8 @@ const displayVideoDetails = (video) => {
       alt="Shoes" />
   </figure>
   <div class="card-body">
-    <h2 class="card-title">Card Title</h2>
-    <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
+    <h2 class="card-title">${video.title}</h2>
+    <p>${video.description}</p>
   </div>
 </div>
   `;
@@ -138,7 +138,7 @@ const displayVideos = (videos) => {
                 </div>
               </div>
               <div class="intro">
-                <h2 class="text-sm font-semibold">Shape of you</h2>
+                <h2 class="text-sm font-semibold">${video.title}</h2>
                 <p class="text-sm text-gray-400 flex gap-1">
                   ${video.authors[0].profile_name}
                   <img
