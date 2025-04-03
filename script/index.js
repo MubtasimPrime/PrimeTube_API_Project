@@ -141,16 +141,24 @@ const displayVideos = (videos) => {
                 <h2 class="text-sm font-semibold">${video.title}</h2>
                 <p class="text-sm text-gray-400 flex gap-1">
                   ${video.authors[0].profile_name}
-                  <img
+                  ${
+                    video.authors[0].verified == true
+                      ? `<img
                     class="w-5 h-5"
                     src="https://img.icons8.com/?size=48&id=98A4yZTt9abw&format=png"
                     alt=""
-                  />
+                  />`
+                      : ``
+                  }
                 </p>
-                <p class="text-sm text-gray-400 flex gap-1">${video.others.views} views</p>
+                <p class="text-sm text-gray-400 flex gap-1">${
+                  video.others.views
+                } views</p>
               </div>
             </div>
-            <button onClick="loadVideoDetails('${video.video_id}')" class="btn btn-block">Show Details</button>
+            <button onClick="loadVideoDetails('${
+              video.video_id
+            }')" class="btn btn-block">Show Details</button>
           </div>
     `;
     videoContainer.append(videoCard);
@@ -166,7 +174,7 @@ const loadCategoriesVideos = (id) => {
       removeActiveClass();
       const clickedButton = document.getElementById(`btn-${id}`);
       clickedButton.classList.add("active");
-      console.log(clickedButton);
+      // console.log(clickedButton);
       displayVideos(data.category);
     });
 };
